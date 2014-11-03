@@ -48,6 +48,8 @@ init = (el, opts = {}) ->
   opts.watermarkImage ?= null
   opts.watermarkScale ?= 1
 
+  opts.showToolbar ?= true
+
   unless 'tools' of opts
     opts.tools = [
       tools.Pencil,
@@ -70,18 +72,22 @@ init = (el, opts = {}) ->
   if [' ', ' '].join(el.className).indexOf(' literally ') == -1
     el.className = el.className + ' literally'
 
-  pickerElement = document.createElement('div')
-  pickerElement.className = 'lc-picker'
+  pickerElement = null
+  if opts.showToolbar
+    pickerElement = document.createElement('div')
+    pickerElement.className = 'lc-picker'
 
   drawingViewElement = document.createElement('div')
-  drawingViewElement.className = 'lc-drawing'
+  drawingViewElement.className = if opts.showToolbar then 'lc-drawing' else 'lc-drawing-full-width'
 
-  optionsElement = document.createElement('div')
-  optionsElement.className = 'lc-options'
+  optionsElement = null
+  if opts.showToolbar
+    optionsElement = document.createElement('div')
+    optionsElement.className = 'lc-options'
 
-  el.appendChild(pickerElement)
+  pickerElement && el.appendChild(pickerElement)
   el.appendChild(drawingViewElement)
-  el.appendChild(optionsElement)
+  optionsElement && el.appendChild(optionsElement)
 
   ### and get to work ###
 

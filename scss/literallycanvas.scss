@@ -73,14 +73,22 @@ $optionsHeight: 65px;
     top: 0; left: 0; bottom: 0; width: $pickerWidth; background-color: #aaa;
   }
 
-  .lc-drawing {
-    top: 0; right: 0; bottom: $optionsHeight; left: $pickerWidth;
+  .lc-drawing, .lc-drawing-full-width {
+    top: 0; right: 0;
     cursor: default;
 
     & > * {
       position: absolute;
       top: 0; right: 0; bottom: 0; left: 0;
     }
+  }
+
+  .lc-drawing {
+    bottom: $optionsHeight; left: $pickerWidth;
+  }
+
+  .lc-drawing-full-width {
+    bottom: 0; left: 0;
   }
 
   .lc-options {

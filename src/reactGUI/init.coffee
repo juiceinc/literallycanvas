@@ -8,14 +8,18 @@ Picker = require './Picker'
 init = (pickerElement, optionsElement, lc, tools, imageURLPrefix) ->
   toolButtonComponents = tools.map (ToolClass) ->
     toolInstance = new ToolClass()
-    createToolButton
-      displayName: toolInstance.name
-      imageName: toolInstance.iconName
-      getTool: -> toolInstance
+    if lc.showToolbar
+	    createToolButton
+	      displayName: toolInstance.name
+	      imageName: toolInstance.iconName
+	      getTool: -> toolInstance
+    else
+      lc.tools.push(toolInstance)
 
-  React.renderComponent(Picker(
-    {lc, toolButtonComponents, imageURLPrefix}), pickerElement)
-  React.renderComponent(Options({lc, imageURLPrefix}), optionsElement)
+  if lc.showToolbar
+    React.renderComponent(Picker(
+      {lc, toolButtonComponents, imageURLPrefix}), pickerElement)
+    React.renderComponent(Options({lc, imageURLPrefix}), optionsElement)
 
 
 module.exports = init
